@@ -4,7 +4,7 @@ import LoginScreen from '../../pages/login-screen/login-screen.tsx';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
 import PropertyScreen from '../../pages/property-screen/property-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
-import {AuthorizationStatus} from '../../const.ts';
+import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import NotFound from '../../pages/found-not-screen/found-not-screen.tsx';
 
 type AppScreenProps = {
@@ -15,17 +15,17 @@ function App({ offerCardCount } : AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainScreen offerCardCount={offerCardCount}/>}/>
-        <Route path="/login" element={<LoginScreen/>}/>
+        <Route path={AppRoute.Root} element={<MainScreen offerCardCount={offerCardCount}/>}/>
+        <Route path={AppRoute.Login} element={<LoginScreen/>}/>
         <Route
-          path="/favorites" element={
+          path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
               <FavoritesScreen/>
             </PrivateRoute>
           }
         />
-        <Route path="/offer/:id" element={<PropertyScreen/>}/>
-        <Route path="*" element={<NotFound/>}/>
+        <Route path={AppRoute.Offer} element={<PropertyScreen/>}/>
+        <Route path={AppRoute.NotFound} element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>
   );
